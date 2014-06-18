@@ -1,24 +1,23 @@
-(function (global, module) {
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    // Browser globals (root is window)
+    root.xpect = factory();
+  }
+}(this, function () {
 
-  var exports = module.exports;
+  function xpect (obj) {
+    return new Assertion(obj);
+  }
 
-  /**
-   * Exports.
-   */
-
-  module.exports = expect;
-  expect.Assertion = Assertion;
-
-  /**
-   * Exports version.
-   */
-
-  expect.version = '0.3.1';
+  xpect.version = '0.3.1';
 
   /**
    * Possible assertion flags.
    */
-
   var flags = {
       not: ['to', 'be', 'have', 'include', 'only']
     , to: ['be', 'have', 'include', 'only', 'not']
@@ -27,16 +26,11 @@
     , be: ['an']
   };
 
-  function expect (obj) {
-    return new Assertion(obj);
-  }
-
   /**
    * Constructor
    *
    * @api private
    */
-
   function Assertion (obj, flag, parent) {
     this.obj = obj;
     this.flags = {};
@@ -86,7 +80,6 @@
    *
    * @api private
    */
-
   Assertion.prototype.assert = function (truth, msg, error, expected) {
     var msg = this.flags.not ? error : msg
       , ok = this.flags.not ? !truth : truth
@@ -110,7 +103,6 @@
    *
    * @api public
    */
-
   Assertion.prototype.ok = function () {
     this.assert(
         !!this.obj
@@ -123,12 +115,11 @@
    *
    * @api public
    */
-
   Assertion.prototype.withArgs = function() {
-    expect(this.obj).to.be.a('function');
+    xpect(this.obj).to.be.a('function');
     var fn = this.obj;
     var args = Array.prototype.slice.call(arguments);
-    return expect(function() { fn.apply(null, args); });
+    return xpect(function() { fn.apply(null, args); });
   };
 
   /**
@@ -137,10 +128,9 @@
    * @param {Function|RegExp} callback, or regexp to match error string against
    * @api public
    */
-
   Assertion.prototype.throwError =
   Assertion.prototype.throwException = function (fn) {
-    expect(this.obj).to.be.a('function');
+    xpect(this.obj).to.be.a('function');
 
     var thrown = false
       , not = this.flags.not;
@@ -151,9 +141,9 @@
       if (isRegExp(fn)) {
         var subject = 'string' == typeof e ? e : e.message;
         if (not) {
-          expect(subject).to.not.match(fn);
+          xpect(subject).to.not.match(fn);
         } else {
-          expect(subject).to.match(fn);
+          xpect(subject).to.match(fn);
         }
       } else if ('function' == typeof fn) {
         fn(e);
@@ -179,7 +169,6 @@
    *
    * @api public
    */
-
   Assertion.prototype.empty = function () {
     var expectation;
 
@@ -191,10 +180,10 @@
       }
     } else {
       if ('string' != typeof this.obj) {
-        expect(this.obj).to.be.an('object');
+        xpect(this.obj).to.be.an('object');
       }
 
-      expect(this.obj).to.have.property('length');
+      xpect(this.obj).to.have.property('length');
       expectation = !this.obj.length;
     }
 
@@ -210,7 +199,6 @@
    *
    * @api public
    */
-
   Assertion.prototype.be =
   Assertion.prototype.equal = function (obj) {
     this.assert(
@@ -225,10 +213,9 @@
    *
    * @api public
    */
-
   Assertion.prototype.eql = function (obj) {
     this.assert(
-        expect.eql(this.obj, obj)
+        xpect.eql(this.obj, obj)
       , function(){ return 'expected ' + i(this.obj) + ' to sort of equal ' + i(obj) }
       , function(){ return 'expected ' + i(this.obj) + ' to sort of not equal ' + i(obj) }
       , obj);
@@ -242,7 +229,6 @@
    * @param {Number} finish
    * @api public
    */
-
   Assertion.prototype.within = function (start, finish) {
     var range = start + '..' + finish;
     this.assert(
@@ -257,7 +243,6 @@
    *
    * @api public
    */
-
   Assertion.prototype.a =
   Assertion.prototype.an = function (type) {
     if ('string' == typeof type) {
@@ -291,7 +276,6 @@
    * @param {Number} n
    * @api public
    */
-
   Assertion.prototype.greaterThan =
   Assertion.prototype.above = function (n) {
     this.assert(
@@ -307,7 +291,6 @@
    * @param {Number} n
    * @api public
    */
-
   Assertion.prototype.lessThan =
   Assertion.prototype.below = function (n) {
     this.assert(
@@ -323,7 +306,6 @@
    * @param {RegExp} regexp
    * @api public
    */
-
   Assertion.prototype.match = function (regexp) {
     this.assert(
         regexp.exec(this.obj)
@@ -338,9 +320,8 @@
    * @param {Number} n
    * @api public
    */
-
   Assertion.prototype.length = function (n) {
-    expect(this.obj).to.have.property('length');
+    xpect(this.obj).to.have.property('length');
     var len = this.obj.length;
     this.assert(
         n == len
@@ -356,7 +337,6 @@
    * @param {Mixed} val
    * @api public
    */
-
   Assertion.prototype.property = function (name, val) {
     if (this.flags.own) {
       this.assert(
@@ -403,7 +383,6 @@
    * @param {Mixed} obj|string
    * @api public
    */
-
   Assertion.prototype.string =
   Assertion.prototype.contain = function (obj) {
     if ('string' == typeof this.obj) {
@@ -427,7 +406,6 @@
    * @param {Array|String ...} keys
    * @api public
    */
-
   Assertion.prototype.key =
   Assertion.prototype.keys = function ($keys) {
     var str
@@ -493,7 +471,6 @@
   /**
    * Function bind implementation.
    */
-
   function bind (fn, scope) {
     return function () {
       return fn.apply(scope, arguments);
@@ -506,11 +483,9 @@
    * @see bit.ly/5Fq1N2
    * @api public
    */
-
-  function every (arr, fn, thisObj) {
-    var scope = thisObj || global;
+  function every (arr, fn, thisArg) {
     for (var i = 0, j = arr.length; i < j; ++i) {
-      if (!fn.call(scope, arr[i], i, arr)) {
+      if (!fn.call(thisArg, arr[i], i, arr)) {
         return false;
       }
     }
@@ -523,7 +498,6 @@
    * @see bit.ly/a5Dxa2
    * @api public
    */
-
   function indexOf (arr, o, i) {
     if (Array.prototype.indexOf) {
       return Array.prototype.indexOf.call(arr, o, i);
@@ -574,7 +548,6 @@
    * @see taken from node.js `util` module (copyright Joyent, MIT license)
    * @api private
    */
-
   function i (obj, showHidden, depth) {
     var seen = [];
 
@@ -587,7 +560,7 @@
       // Check that value is an object with an inspect function on it
       if (value && typeof value.inspect === 'function' &&
           // Filter out the util module, it's inspect function is special
-          value !== exports &&
+          (typeof exports === 'undefined' || value !== exports) &&
           // Also filter out any prototype objects using the circular check.
           !(value.constructor && value.constructor.prototype === value)) {
         return value.inspect(recurseTimes);
@@ -637,7 +610,7 @@
       if (isDate(value) && $keys.length === 0) {
         return stylize(value.toUTCString(), 'date');
       }
-      
+
       // Error objects can be shortcutted
       if (value instanceof Error) {
         return stylize("["+value.toString()+"]", 'Error');
@@ -765,7 +738,7 @@
     return format(obj, (typeof depth === 'undefined' ? 2 : depth));
   }
 
-  expect.stringify = i;
+  xpect.stringify = i;
 
   function isArray (ar) {
     return Object.prototype.toString.call(ar) === '[object Array]';
@@ -870,8 +843,7 @@
    * @see taken from node.js `assert` module (copyright Joyent, MIT license)
    * @api private
    */
-
-  expect.eql = function eql(actual, expected) {
+  xpect.eql = function eql(actual, expected) {
     // 7.1. All identical values are equivalent, as determined by ===.
     if (actual === expected) {
       return true;
@@ -935,7 +907,7 @@
       }
       a = pSlice.call(a);
       b = pSlice.call(b);
-      return expect.eql(a, b);
+      return xpect.eql(a, b);
     }
     try{
       var ka = keys(a),
@@ -959,7 +931,7 @@
     //~~~possibly expensive deep test
     for (i = ka.length - 1; i >= 0; i--) {
       key = ka[i];
-      if (!expect.eql(a[key], b[key]))
+      if (!xpect.eql(a[key], b[key]))
          return false;
     }
     return true;
@@ -1274,11 +1246,7 @@
     return JSON;
   })();
 
-  if ('undefined' != typeof window) {
-    window.expect = module.exports;
-  }
-
-})(
-    this
-  , 'undefined' != typeof module ? module : {exports: {}}
-);
+  // export xpect
+  xpect.Assertion = Assertion;
+  return xpect;
+}));

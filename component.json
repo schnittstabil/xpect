@@ -1,0 +1,19 @@
+{
+  "name": "xpect",
+  "repository": "schnittstabil/xpect",
+  "description": "BDD style assertions for node and the browser (LearnBoost/expect.js fork)",
+  "version": "0.3.1",
+  "keywords": [
+    "expect",
+    "test",
+    "testing",
+    "bdd",
+    "assert",
+    "assertion"
+  ],
+  "scripts": [
+    "xpect.js"
+  ],
+  "main": "xpect.js",
+  "license": "MIT"
+}

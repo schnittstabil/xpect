@@ -1,0 +1,33 @@
+{
+  "name": "xpect",
+  "version": "0.3.1",
+  "homepage": "https://github.com/schnittstabil/xpect",
+  "authors": [
+    "Guillermo Rauch <guillermo@learnboost.com>",
+    "Michael Mayer <michael@schnittstabil.de>"
+  ],
+  "description": "BDD style assertions for node and the browser (LearnBoost/expect.js fork)",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "expect",
+    "test",
+    "testing",
+    "bdd",
+    "assert",
+    "assertion"
+  ],
+  "license": "MIT",
+  "main": "xpect.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "component.json",
+    "package.json"
+  ]
+}

@@ -1,13 +1,38 @@
 {
-    "name": "expect.js"
-  , "version": "0.3.1"
-  , "description": "BDD style assertions for node and the browser."
-  , "repository": {
-        "type": "git",
-        "url": "git://github.com/LearnBoost/expect.js.git"
-    }
-  , "devDependencies": {
-        "mocha": "*"
-      , "serve": "*"
-    }
+  "name": "xpect",
+  "version": "0.3.1",
+  "description": "BDD style assertions for node and the browser (LearnBoost/expect.js fork)",
+  "keywords": [
+    "expect",
+    "test",
+    "testing",
+    "bdd",
+    "assert",
+    "assertion"
+  ],
+  "main": "xpect.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:schnittstabil/xpect.git"
+  },
+  "author": "Guillermo Rauch <guillermo@learnboost.com>",
+  "contributors": [
+    "Michael Mayer <michael@schnittstabil.de>"
+  ],
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "serve": "^1.4.0"
+  },
+  "files":  [
+    "test",
+    "History.md",
+    "xpect.js"
+  ],
+  "scripts": {
+    "test": "node_modules/.bin/mocha --require ./test/common --reporter spec --growl test/xpect.js",
+    "test-browser": "node_modules/.bin/serve ."
+  },
+  "spm": {
+    "main": "xpect.js"
+  }
 }

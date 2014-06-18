@@ -1,16 +1,15 @@
 <!doctype html>
 <html>
   <head>
-    <title>expect.js tests</title>
-    <link href="/support/mocha.css" rel="stylesheet" media="screen" />
-    <script src="/support/jquery.js"></script>
-    <script src="/support/mocha.js"></script>
+    <title>expect tests</title>
+    <link href="/node_modules/mocha/mocha.css" rel="stylesheet" media="screen" />
+    <script src="/node_modules/mocha/mocha.js"></script>
     <script>mocha.setup({ ui: 'bdd', globals: ['script*']});</script>
-    <script src="/expect.js"></script>
-    <script src="/test/expect.js"></script>
-    <script>window.onload = mocha.run;</script>
+    <script src="/xpect.js"></script>
+    <script src="/test/xpect.js"></script>
   </head>
   <body>
     <div id="mocha"></div>
+    <script>mocha.run();</script>
   </body>
 </html>
