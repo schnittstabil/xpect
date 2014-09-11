@@ -1,4 +1,4 @@
-# xpect - A [LearnBoost/expect.js](https://github.com/LearnBoost/expect.js) fork.
+# xpect - A [LearnBoost/expect.js](https://github.com/LearnBoost/expect.js) fork [![Build Status](https://travis-ci.org/schnittstabil/xpect.svg)](https://travis-ci.org/schnittstabil/xpect)
 
 Minimalistic BDD assertion toolkit based on
 [should.js](http://github.com/visionmedia/should.js)
@@ -228,16 +228,18 @@ and shown/processed by the test runner.
 ## Running tests
 
 ```bash
-$ npm install xpect
-$ cd node_modules/xpect
-$ npm install
+# install xpect and devDependencies
+npm install xpect
+cd node_modules/xpect
+npm install
+npm run install-browser-test
 
-// node
-$ npm test
+# node
+npm test
 
-// browser
-$ npm run test-browser
-$ xdg-open http://localhost:3000/test/
+# browser
+npm run browser-test
+xdg-open http://localhost:3000/test/
 ```
 
 ## Credits

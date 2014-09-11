@@ -13,7 +13,7 @@
     return new Assertion(obj);
   }
 
-  xpect.version = '0.3.1';
+  xpect.version = '0.3.2';
 
   /**
    * Possible assertion flags.
