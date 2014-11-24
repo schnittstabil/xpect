@@ -22,7 +22,7 @@ xpect(window).not.to.be.an(Image);
 
 ### additional features beyond expect
 
-- [AMD support](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) (not easy to achieve with `expect.js` because of the `.js` prefix in its package name)
+- [AMD support](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) (not easy to achieve with `expect.js` because of the `.js` suffix in its package name)
 - AMD, [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) and Browser-Globals support by [UMD](https://github.com/umdjs/umd/blob/master/returnExports.js)
 - [bower.io support](http://bower.io) (`bower install xpect`)
 - [component support](https://github.com/component/guide) (`component install xpect`)
